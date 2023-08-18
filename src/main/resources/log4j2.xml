@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <RollingFile name="File" fileName="${env:LOG_DIR}/authenticationService.log" filePattern="${env:LOG_DIR}/authenticationService-backup-%d{MM-dd-yy-HH-mm-ss}-%i.log.gz">
+            <PatternLayout>
+                <pattern>{\"application\":\"Auth Service\",\"dateTime\":\"%d{yyyy-MM-dd HH:mm:ss}\", \"msg\":\"%-5p %c{1}:%L - %m\"}%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+        </RollingFile>
+        <GELF name="gelfAppender" server="161.97.133.187" port="12201" hostName="161.97.133.187" protocol="TCP">
+        	<PatternLayout>
+                <pattern>{\"application\":\"Auth Service\",\"dateTime\":\"%d{yyyy-MM-dd HH:mm:ss}\", \"msg\":\"%-5p %c{1}:%L - %m\"}%n</pattern>
+            </PatternLayout>
+	    </GELF>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info" additivity="false">
+            <appender-ref ref="File" />
+            <appender-ref ref="gelfAppender" />
+            <appender-ref ref="STDOUT" />
+        </Root>
+    </Loggers>
+</Configuration>
