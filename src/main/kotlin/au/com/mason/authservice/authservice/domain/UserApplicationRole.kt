@@ -5,7 +5,8 @@ import jakarta.persistence.*
 @Table(name = "userapplicationroles")
 @Entity
 data class UserApplicationRole(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO, generator = "userapplicationroles_seq")
+    @SequenceGenerator(name = "userapplicationroles_seq", sequenceName = "userapplicationroles_seq", allocationSize = 1)
     val id: Long? = null,
     @ManyToOne
     @JoinColumn(name = "userApplicationId")

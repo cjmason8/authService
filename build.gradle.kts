@@ -39,7 +39,7 @@ dependencies {
 			replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
 		}
 	}
-	//implementation("de.siegmar:logback-gelf:4.0.0")
+	implementation("org.graylog2.log4j2:log4j2-gelf:1.3.1")
 }
 
 tasks.withType<KotlinCompile> {
