@@ -9,7 +9,7 @@ data class UserApplicationRole(
     @SequenceGenerator(name = "userapplicationroles_seq", sequenceName = "userapplicationroles_seq", allocationSize = 1)
     val id: Long? = null,
     @ManyToOne
-    @JoinColumn(name = "userApplicationId")
+    @JoinColumn(name = "userapplicationid")
     val userApplication: UserApplication,
     @Enumerated(EnumType.STRING)
     val role: Role

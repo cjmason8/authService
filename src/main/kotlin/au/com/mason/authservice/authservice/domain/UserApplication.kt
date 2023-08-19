@@ -14,7 +14,7 @@ data class UserApplication(
     @Enumerated(EnumType.STRING)
     @Column(name="applicationtype")
     val applicationType: ApplicationType,
-    @OneToMany(mappedBy = "userApplication")
+    @OneToMany(mappedBy = "userapplication")
     val userApplicationRoles: List<UserApplicationRole> = mutableListOf()
 ) {
     override fun toString(): String {
