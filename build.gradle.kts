@@ -40,6 +40,8 @@ dependencies {
 		}
 	}
 	implementation("org.graylog2.log4j2:log4j2-gelf:1.3.1")
+	implementation("software.amazon.awssdk:secretsmanager:2.25.70")
+	implementation("com.google.code.gson:gson")
 }
 
 tasks.withType<KotlinCompile> {
