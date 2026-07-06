@@ -39,7 +39,9 @@ dependencies {
 			replacedBy("org.springframework.boot:spring-boot-starter-log4j2", "Use Log4j2 instead of Logback")
 		}
 	}
-	implementation("org.graylog2.log4j2:log4j2-gelf:1.3.1")
+	implementation("com.kdgregory.logging:log4j2-aws-appenders:3.2.1")
+	implementation("com.kdgregory.logging:aws-facade-v2:3.2.1")
+	implementation("software.amazon.awssdk:cloudwatchlogs:2.25.70")
 	implementation("software.amazon.awssdk:secretsmanager:2.25.70")
 	implementation("com.google.code.gson:gson")
 }

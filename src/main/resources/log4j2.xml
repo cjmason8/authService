@@ -3,25 +3,29 @@
     <Appenders>
         <RollingFile name="File" fileName="${env:LOG_DIR}/authenticationService.log" filePattern="${env:LOG_DIR}/authenticationService-backup-%d{MM-dd-yy-HH-mm-ss}-%i.log.gz">
             <PatternLayout>
-                <pattern>{\"application\":\"Auth Service\",\"dateTime\":\"%d{yyyy-MM-dd HH:mm:ss}\", \"msg\":\"%-5p %c{1}:%L - %m\"}%n</pattern>
+                <pattern>{"application":"Auth Service","Env":"${env:ENV:-local}","dateTime":"%d{yyyy-MM-dd HH:mm:ss}","level":"%p","logger":"%c{1}","line":"%L","msg":"%m"}%n</pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10 MB" />
             </Policies>
         </RollingFile>
-        <GELF name="gelfAppender" server="161.97.133.187" port="12201" hostName="161.97.133.187" protocol="TCP">
-        	<PatternLayout>
-                <pattern>{\"application\":\"Auth Service\",\"dateTime\":\"%d{yyyy-MM-dd HH:mm:ss}\", \"msg\":\"%-5p %c{1}:%L - %m\"}%n</pattern>
+        <CloudWatchAppender name="CloudWatch">
+            <logGroup>${env:AWS_CLOUDWATCH_LOG_GROUP:-/auth-service/local}</logGroup>
+            <logStream>{hostname}-{startupTimestamp}</logStream>
+            <clientRegion>${env:AWS_CLOUDWATCH_REGION:-ap-southeast-2}</clientRegion>
+            <retentionPeriod>${env:AWS_CLOUDWATCH_RETENTION_DAYS:-30}</retentionPeriod>
+            <PatternLayout>
+                <pattern>{"application":"Auth Service","Env":"${env:ENV:-local}","dateTime":"%d{yyyy-MM-dd HH:mm:ss}","level":"%p","logger":"%c{1}","line":"%L","msg":"%m"}%n</pattern>
             </PatternLayout>
-	    </GELF>
+        </CloudWatchAppender>
         <Console name="STDOUT" target="SYSTEM_OUT">
-            <PatternLayout pattern="%m%n"/>
+            <PatternLayout pattern="%m%n" />
         </Console>
     </Appenders>
     <Loggers>
         <Root level="info" additivity="false">
             <appender-ref ref="File" />
-            <appender-ref ref="gelfAppender" />
+            <appender-ref ref="CloudWatch" />
             <appender-ref ref="STDOUT" />
         </Root>
     </Loggers>
